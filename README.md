@@ -32,11 +32,16 @@ library(tibble)
 if (interactive()) run_app()
 
 unique(best_conditions$country)
-#> [1] "Argentina"     "Brazil"        "Costa Rica"    "Nicaragua"    
-#> [5] "Portugal"      "United States" "Uruguay"
+#>  [1] "Argentina"        "Australia"        "Brazil"           "Chile"           
+#>  [5] "Colombia"         "Costa Rica"       "Croatia"          "Ecuador"         
+#>  [9] "El Salvador"      "Fiji"             "France"           "French Polynesia"
+#> [13] "Greece"           "Indonesia"        "Italy"            "Maldives"        
+#> [17] "Mexico"           "Micronesia"       "New Zealand"      "Nicaragua"       
+#> [21] "Panama"           "Peru"             "Philippines"      "Portugal"        
+#> [25] "Puerto Rico"      "Thailand"         "United States"    "Uruguay"
 
 best_conditions
-#> # A tibble: 2,185 × 11
+#> # A tibble: 5,129 × 11
 #>    country spot  type  best_season best_month reliability rating clean blown_out
 #>    <chr>   <chr> <chr> <chr>       <fct>      <chr>       <chr>  <int>     <int>
 #>  1 Argent… Alfo… Beach winter      january    inconsiste… ""         0         1
@@ -49,5 +54,5 @@ best_conditions
 #>  8 Argent… Maqu… Point autumn      february   very consi… "4.0"     27        33
 #>  9 Argent… Mont… Beach autumn      march      consistent  "3.2"     15        32
 #> 10 Argent… Queq… Beach autumn      april      fairly con… ""        26        41
-#> # … with 2,175 more rows, and 2 more variables: too_small <int>, id <chr>
+#> # … with 5,119 more rows, and 2 more variables: too_small <int>, id <chr>
 ```
