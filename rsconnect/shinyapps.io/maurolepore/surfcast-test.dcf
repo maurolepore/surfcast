@@ -1,0 +1,13 @@
+name: surfcast-test
+title: surfcast-test
+username:
+account: maurolepore
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5709550
+bundleId: 5606492
+url: https://maurolepore.shinyapps.io/surfcast-test/
+when: 1645553338.88489
+lastSyncTime: 1645553338.88495
+asMultiple: FALSE
+asStatic: FALSE
