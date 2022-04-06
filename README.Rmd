@@ -73,6 +73,6 @@ best_conditions %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
   filter(!grepl(se, tolower(best_wind))) %>% 
-  select(spot, best_swell, best_wind)
+  select(spot, best_swell, best_wind, type, rating)
 ```
 

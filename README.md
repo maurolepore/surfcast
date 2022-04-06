@@ -84,17 +84,17 @@ best_conditions %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
   filter(!grepl(se, tolower(best_wind))) %>% 
-  select(spot, best_swell, best_wind)
-#> # A tibble: 9 × 3
-#>   spot                  best_swell best_wind     
-#>   <chr>                 <chr>      <chr>         
-#> 1 Alfonsina             East       West          
-#> 2 Biologia              Northeast  West-northwest
-#> 3 La-Perla              East       West          
-#> 4 Yacht                 Northeast  West-northwest
-#> 5 Pinamar               East       West-northwest
-#> 6 Constitucion          East       West          
-#> 7 Mar-de-Ajó            East       West          
-#> 8 Bajada-de-los-Palitos East       West-northwest
-#> 9 Rada-Tilly            East       West-northwest
+  select(spot, best_swell, best_wind, type, rating)
+#> # A tibble: 9 × 5
+#>   spot                  best_swell best_wind      type           rating
+#>   <chr>                 <chr>      <chr>          <chr>          <chr> 
+#> 1 Alfonsina             East       West           Beach          ""    
+#> 2 Biologia              Northeast  West-northwest Point          "3.9" 
+#> 3 La-Perla              East       West           Beach          "3.8" 
+#> 4 Yacht                 Northeast  West-northwest Point          "3.2" 
+#> 5 Pinamar               East       West-northwest Beach          "3.6" 
+#> 6 Constitucion          East       West           Beach          ""    
+#> 7 Mar-de-Ajó            East       West           Beach          "3.1" 
+#> 8 Bajada-de-los-Palitos East       West-northwest Beach and reef ""    
+#> 9 Rada-Tilly            East       West-northwest Beach          "3.4"
 ```
