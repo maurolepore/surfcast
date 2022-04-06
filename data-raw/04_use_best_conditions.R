@@ -116,4 +116,9 @@ best_conditions <- best_conditions %>%
   ) %>%
   relocate(id, .after = last_col())
 
+best_conditions <- best_conditions %>%
+  select(best_surf) %>%
+  mutate(best_swell = gsub(".*( [^ ]+) swell.*", "\\1", best_surf)) %>%
+  mutate(best_wind = gsub(".* (.*)[.]", "\\1", best_surf))
+
 usethis::use_data(best_conditions, overwrite = TRUE)
