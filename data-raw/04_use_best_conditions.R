@@ -101,6 +101,11 @@ best_conditions <- best_conditions %>%
 best_conditions <- left_join(supported_spots, best_conditions, by = "id")
 
 best_conditions <- best_conditions %>%
+  mutate(best_swell = gsub(".* ([^ ]+) swell.*", "\\1", best_surf)) %>%
+  mutate(best_wind = gsub(".* (.*)[.]", "\\1", best_surf)) %>%
+  select(-best_surf)
+
+best_conditions <- best_conditions %>%
   mutate(best_month = factor(best_month, levels = tolower(month.name))) %>%
   arrange(country, best_month, spot) %>%
   relocate(
@@ -109,16 +114,15 @@ best_conditions <- best_conditions %>%
     type,
     best_season,
     best_month,
-    best_surf,
+    best_swell,
+    best_wind,
     reliability,
     rating,
     clean
   ) %>%
   relocate(id, .after = last_col())
 
-best_conditions <- best_conditions %>%
-  select(best_surf) %>%
-  mutate(best_swell = gsub(".*( [^ ]+) swell.*", "\\1", best_surf)) %>%
-  mutate(best_wind = gsub(".* (.*)[.]", "\\1", best_surf))
+# FIXME
+best_conditions <- best_conditions %>% filter(!is.na(type))
 
 usethis::use_data(best_conditions, overwrite = TRUE)
