@@ -1,19 +1,15 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-
 
 # surfcast
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The surfcast package and [app](https://maurolepore.shinyapps.io/surfcast/) make
-it easy to find the best place to surf during a given season or month. The data
-comes from https://www.surf-forecast.com/.
+The surfcast package and
+[app](https://maurolepore.shinyapps.io/surfcast/) make it easy to find
+the best place to surf during a given season or month. The data comes
+from <https://www.surf-forecast.com/>.
 
 ## Installation
 
@@ -26,25 +22,19 @@ devtools::install_github("maurolepore/surfcast")
 
 ## Example
 
-Use the database [online](https://maurolepore.shinyapps.io/surfcast/). You may
-also access the data via a shiny app or directly in R.
+Use the database [online](https://maurolepore.shinyapps.io/surfcast/).
+You may also access the data via a shiny app or directly in R.
 
-
-```r
+``` r
 library(surfcast)
-library(tibble)
+library(dplyr, warn.conflicts = FALSE)
+```
 
-if (interactive()) run_app()
+``` r
+run_app()
+```
 
-unique(best_conditions$country)
-#>  [1] "Argentina"        "Australia"        "Brazil"           "Chile"           
-#>  [5] "Colombia"         "Costa Rica"       "Ecuador"          "El Salvador"     
-#>  [9] "Fiji"             "France"           "French Polynesia" "Indonesia"       
-#> [13] "Maldives"         "Mexico"           "Micronesia"       "New Zealand"     
-#> [17] "Nicaragua"        "Panama"           "Peru"             "Philippines"     
-#> [21] "Portugal"         "Puerto Rico"      "Thailand"         "United States"   
-#> [25] "Uruguay"
-
+``` r
 best_conditions
 #> # A tibble: 4,698 × 13
 #>    country   spot  type  best_season best_month best_swell best_wind reliability
@@ -61,4 +51,50 @@ best_conditions
 #> 10 Argentina Queq… Beach autumn      april      South      North-no… fairly con…
 #> # … with 4,688 more rows, and 5 more variables: rating <chr>, clean <int>,
 #> #   blown_out <int>, too_small <int>, id <chr>
+```
+
+``` r
+best_conditions %>% 
+  distinct(country) %>% 
+  pull()
+#>  [1] "Argentina"        "Australia"        "Brazil"           "Chile"           
+#>  [5] "Colombia"         "Costa Rica"       "Ecuador"          "El Salvador"     
+#>  [9] "Fiji"             "France"           "French Polynesia" "Indonesia"       
+#> [13] "Maldives"         "Mexico"           "Micronesia"       "New Zealand"     
+#> [17] "Nicaragua"        "Panama"           "Peru"             "Philippines"     
+#> [21] "Portugal"         "Puerto Rico"      "Thailand"         "United States"   
+#> [25] "Uruguay"
+```
+
+### I’m in Argentina. Where should I go surfing today?
+
+-   Today the swell is NE.
+-   Today the wind is NW.
+
+``` r
+ne <- "north|east"
+nw <- "north|west"
+# Not
+sw <- "south|west"
+se <- "south|east"
+
+best_conditions %>%
+  filter(country == "Argentina") %>% 
+  filter(grepl(ne, tolower(best_swell))) %>%
+  filter(!grepl(sw, tolower(best_swell))) %>%
+  filter(grepl(nw, tolower(best_wind))) %>% 
+  filter(!grepl(se, tolower(best_wind))) %>% 
+  select(spot, best_swell, best_wind)
+#> # A tibble: 9 × 3
+#>   spot                  best_swell best_wind     
+#>   <chr>                 <chr>      <chr>         
+#> 1 Alfonsina             East       West          
+#> 2 Biologia              Northeast  West-northwest
+#> 3 La-Perla              East       West          
+#> 4 Yacht                 Northeast  West-northwest
+#> 5 Pinamar               East       West-northwest
+#> 6 Constitucion          East       West          
+#> 7 Mar-de-Ajó            East       West          
+#> 8 Bajada-de-los-Palitos East       West-northwest
+#> 9 Rada-Tilly            East       West-northwest
 ```

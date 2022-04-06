@@ -38,11 +38,41 @@ also access the data via a shiny app or directly in R.
 
 ```{r example}
 library(surfcast)
-library(tibble)
+library(dplyr, warn.conflicts = FALSE)
+```
 
-if (interactive()) run_app()
+```r
+run_app()
+```
 
-unique(best_conditions$country)
-
+```{r}
 best_conditions
 ```
+
+```{r}
+best_conditions %>% 
+  distinct(country) %>% 
+  pull()
+```
+
+### I'm in Argentina. Where should I go surfing today?
+
+* Today the swell is NE.
+* Today the wind is NW.
+
+```{r}
+ne <- "north|east"
+nw <- "north|west"
+# Not
+sw <- "south|west"
+se <- "south|east"
+
+best_conditions %>%
+  filter(country == "Argentina") %>% 
+  filter(grepl(ne, tolower(best_swell))) %>%
+  filter(!grepl(sw, tolower(best_swell))) %>%
+  filter(grepl(nw, tolower(best_wind))) %>% 
+  filter(!grepl(se, tolower(best_wind))) %>% 
+  select(spot, best_swell, best_wind)
+```
+
