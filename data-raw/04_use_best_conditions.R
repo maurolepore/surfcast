@@ -19,6 +19,13 @@ scrape_info <- function(html) {
   tibble(type = info[[1]], rating = info[[2]], reliability = info[[3]])
 }
 
+scrape_best_surf <- function(html) {
+  best_surf <- html %>%
+    html_elements(".guide-header__best-surf") %>%
+    html_text2()
+  tibble(best_surf)
+}
+
 scrape_best_time <- function(html) {
   best_time <- html %>%
     html_elements(".guide-page__best-month") %>%
@@ -52,7 +59,8 @@ best_data <- function(resp_spot, .spot) {
   bind_cols(
     scrape_best_stats(html_spot),
     scrape_best_time(html_spot),
-    scrape_info(html_spot)
+    scrape_info(html_spot),
+    scrape_best_surf(html_spot)
   ) %>%
     mutate(spot = .spot) %>%
     relocate(spot)
@@ -80,15 +88,15 @@ best_conditions <- map_df(best_cond, identity, .id = "id")
 
 qs::qsave(best_conditions, data_raw("best_conditions.qs"))
 
-best_conditions <- best_conditions %>%
-  mutate(id = gsub("spot_guide_", "", .data$id)) %>%
-  select(-.data$spot)
-
 supported_spots <- country_spot %>%
   sanitize_spot() %>%
   filter(country %in% supported_countries()) %>%
   mutate(id = path_file(url)) %>%
   select(-.data$url, -.data$page)
+
+best_conditions <- best_conditions %>%
+  mutate(id = gsub("spot_guide_", "", .data$id)) %>%
+  select(-.data$spot)
 
 best_conditions <- left_join(supported_spots, best_conditions, by = "id")
 
@@ -101,6 +109,7 @@ best_conditions <- best_conditions %>%
     type,
     best_season,
     best_month,
+    best_surf,
     reliability,
     rating,
     clean
