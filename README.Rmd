@@ -68,7 +68,7 @@ sw <- "south|west"
 se <- "south|east"
 
 best_conditions %>%
-  filter(country == "Argentina") %>% 
+  filter(country == "argentina") %>% 
   filter(grepl(ne, tolower(best_swell))) %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 

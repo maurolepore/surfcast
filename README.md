@@ -79,13 +79,22 @@ sw <- "south|west"
 se <- "south|east"
 
 best_conditions %>%
-  filter(country == "Argentina") %>% 
+  filter(country == "argentina") %>% 
   filter(grepl(ne, tolower(best_swell))) %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
   filter(!grepl(se, tolower(best_wind))) %>% 
   select(spot, best_swell, best_wind, type, rating)
-#> # A tibble: 0 × 5
-#> # … with 5 variables: spot <chr>, best_swell <chr>, best_wind <chr>,
-#> #   type <chr>, rating <dbl>
+#> # A tibble: 9 × 5
+#>   spot                     best_swell best_wind      type           rating
+#>   <chr>                    <chr>      <chr>          <chr>           <dbl>
+#> 1 alfonsina                east       west           beach            NA  
+#> 2 biologia                 northeast  west-northwest point             3.9
+#> 3 la-perla-1-mar-del-plata east       west           beach             3.8
+#> 4 yacht                    northeast  west-northwest point             3.2
+#> 5 pinamar                  east       west-northwest beach             3.6
+#> 6 constitucion             east       west           beach            NA  
+#> 7 mar-de-ajo               east       west           beach             3.1
+#> 8 bajada-de-los-palitos    east       west-northwest beach and reef   NA  
+#> 9 rada-tilly               east       west-northwest beach             3.4
 ```
