@@ -37,33 +37,33 @@ run_app()
 ``` r
 best_conditions
 #> # A tibble: 4,698 × 13
-#>    country   spot  type  best_season best_month best_swell best_wind reliability
-#>    <chr>     <chr> <chr> <chr>       <fct>      <chr>      <chr>     <chr>      
-#>  1 Argentina Alfo… Beach winter      january    East       West      inconsiste…
-#>  2 Argentina Biol… Point summer      january    Northeast  West-nor… very consi…
-#>  3 Argentina Cabo… Beac… summer      january    North-nor… South-so… fairly con…
-#>  4 Argentina La-P… Beach winter      january    East       West      fairly con…
-#>  5 Argentina La-V… Beac… winter      january    Northwest  South     consistent 
-#>  6 Argentina Yacht Point summer      january    Northeast  West-nor… consistent 
-#>  7 Argentina Hori… Point autumn      february   South-sou… North-no… very consi…
-#>  8 Argentina Maqu… Point autumn      february   South-sou… North-no… very consi…
-#>  9 Argentina Mont… Beach autumn      march      South-sou… North     consistent 
-#> 10 Argentina Queq… Beach autumn      april      South      North-no… fairly con…
-#> # … with 4,688 more rows, and 5 more variables: rating <chr>, clean <int>,
-#> #   blown_out <int>, too_small <int>, id <chr>
+#>    spot           country best_month best_swell best_wind rating clean blown_out
+#>    <chr>          <chr>   <ord>      <chr>      <chr>      <dbl> <int>     <int>
+#>  1 alfonsina      argent… january    east       west        NA       0         1
+#>  2 biologia       argent… january    northeast  west-nor…    3.9    12        28
+#>  3 cabo-raso      argent… january    north-nor… south-so…   NA      11        28
+#>  4 la-perla-1-ma… argent… january    east       west         3.8     0         1
+#>  5 la-virazon     argent… january    northwest  south       NA       0         1
+#>  6 yacht          argent… january    northeast  west-nor…    3.2    12        28
+#>  7 horizonte      argent… february   south-sou… north-no…    4.1    27        33
+#>  8 maquinita      argent… february   south-sou… north-no…    4      27        33
+#>  9 monte-hermoso… argent… march      south-sou… north        3.2    15        32
+#> 10 quequen        argent… april      south      north-no…   NA      26        41
+#> # … with 4,688 more rows, and 5 more variables: too_small <int>,
+#> #   reliability <ord>, type <chr>, region <chr>, continent <chr>
 ```
 
 ``` r
 best_conditions %>% 
   distinct(country) %>% 
   pull()
-#>  [1] "Argentina"        "Australia"        "Brazil"           "Chile"           
-#>  [5] "Colombia"         "Costa Rica"       "Ecuador"          "El Salvador"     
-#>  [9] "Fiji"             "France"           "French Polynesia" "Indonesia"       
-#> [13] "Maldives"         "Mexico"           "Micronesia"       "New Zealand"     
-#> [17] "Nicaragua"        "Panama"           "Peru"             "Philippines"     
-#> [21] "Portugal"         "Puerto Rico"      "Thailand"         "United States"   
-#> [25] "Uruguay"
+#>  [1] "argentina"        "australia"        "brazil"           "chile"           
+#>  [5] "colombia"         "costa rica"       "ecuador"          "el salvador"     
+#>  [9] "fiji"             "france"           "french polynesia" "indonesia"       
+#> [13] "maldives"         "mexico"           "micronesia"       "new zealand"     
+#> [17] "nicaragua"        "panama"           "peru"             "philippines"     
+#> [21] "portugal"         "puerto rico"      "thailand"         "united states"   
+#> [25] "uruguay"
 ```
 
 ### I’m in Argentina. Where should I go surfing today?
@@ -85,16 +85,7 @@ best_conditions %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
   filter(!grepl(se, tolower(best_wind))) %>% 
   select(spot, best_swell, best_wind, type, rating)
-#> # A tibble: 9 × 5
-#>   spot                  best_swell best_wind      type           rating
-#>   <chr>                 <chr>      <chr>          <chr>          <chr> 
-#> 1 Alfonsina             East       West           Beach          ""    
-#> 2 Biologia              Northeast  West-northwest Point          "3.9" 
-#> 3 La-Perla              East       West           Beach          "3.8" 
-#> 4 Yacht                 Northeast  West-northwest Point          "3.2" 
-#> 5 Pinamar               East       West-northwest Beach          "3.6" 
-#> 6 Constitucion          East       West           Beach          ""    
-#> 7 Mar-de-Ajó            East       West           Beach          "3.1" 
-#> 8 Bajada-de-los-Palitos East       West-northwest Beach and reef ""    
-#> 9 Rada-Tilly            East       West-northwest Beach          "3.4"
+#> # A tibble: 0 × 5
+#> # … with 5 variables: spot <chr>, best_swell <chr>, best_wind <chr>,
+#> #   type <chr>, rating <dbl>
 ```

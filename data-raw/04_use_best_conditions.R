@@ -108,19 +108,20 @@ best_conditions <- best_conditions %>%
 best_conditions <- best_conditions %>%
   mutate(best_month = factor(best_month, levels = tolower(month.name))) %>%
   arrange(country, best_month, spot) %>%
+  select(-spot) %>%
   relocate(
+    id,
     country,
-    spot,
-    type,
-    best_season,
     best_month,
     best_swell,
     best_wind,
-    reliability,
     rating,
-    clean
-  ) %>%
-  relocate(id, .after = last_col())
+    clean,
+    blown_out,
+    too_small,
+    reliability,
+    type
+  )
 
 # FIXME
 best_conditions <- best_conditions %>% filter(!is.na(type))
@@ -132,5 +133,14 @@ best_conditions <- best_conditions %>%
   mutate(best_month = factor(best_month, ordered = TRUE)) %>%
   mutate(rating = as.double(rating)) %>%
   select(-best_season)
+
+best_conditions <- best_conditions %>%
+  mutate(region = tolower(countrycode::countrycode(
+    country, "country.name", "region"
+  ))) %>%
+  mutate(continent = tolower(countrycode::countrycode(
+    country, "country.name", "continent"
+  ))) %>%
+  rename(spot = id)
 
 usethis::use_data(best_conditions, overwrite = TRUE)
