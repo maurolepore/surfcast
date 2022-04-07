@@ -13,7 +13,7 @@ run_app <- function() {
   )
 
   server <- function(input, output, session) {
-    output$best_conditions <- DT::renderDT(best_conditions)
+    output$best_conditions <- DT::renderDT(surfcast::best_conditions)
   }
 
   shinyApp(ui, server)
