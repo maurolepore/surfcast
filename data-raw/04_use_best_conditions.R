@@ -125,4 +125,12 @@ best_conditions <- best_conditions %>%
 # FIXME
 best_conditions <- best_conditions %>% filter(!is.na(type))
 
+best_conditions <- best_conditions %>%
+  mutate(across(where(is.character), tolower)) %>%
+  mutate(reliability = forcats::fct_reorder(reliability, clean, mean)) %>%
+  mutate(reliability = factor(reliability, ordered = TRUE)) %>%
+  mutate(best_month = factor(best_month, ordered = TRUE)) %>%
+  mutate(rating = as.double(rating)) %>%
+  select(-best_season)
+
 usethis::use_data(best_conditions, overwrite = TRUE)
