@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 2.10)
 Imports: 
+    dplyr,
     DT,
     here,
     httr2,
@@ -18,6 +19,7 @@ Imports:
     rvest,
     shiny
 Suggests: 
+    countrycode,
     roxygen2,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
