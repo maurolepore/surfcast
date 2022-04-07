@@ -83,18 +83,19 @@ best_conditions %>%
   filter(grepl(ne, tolower(best_swell))) %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
-  filter(!grepl(se, tolower(best_wind))) %>% 
-  select(spot, best_swell, best_wind, type, rating)
-#> # A tibble: 9 × 5
-#>   spot                     best_swell best_wind      type           rating
-#>   <chr>                    <chr>      <chr>          <chr>           <dbl>
-#> 1 alfonsina                east       west           beach            NA  
-#> 2 biologia                 northeast  west-northwest point             3.9
-#> 3 la-perla-1-mar-del-plata east       west           beach             3.8
-#> 4 yacht                    northeast  west-northwest point             3.2
-#> 5 pinamar                  east       west-northwest beach             3.6
-#> 6 constitucion             east       west           beach            NA  
-#> 7 mar-de-ajo               east       west           beach             3.1
-#> 8 bajada-de-los-palitos    east       west-northwest beach and reef   NA  
-#> 9 rada-tilly               east       west-northwest beach             3.4
+  filter(!grepl(se, tolower(best_wind)))
+#> # A tibble: 9 × 13
+#>   spot  country best_month best_swell best_wind rating clean blown_out too_small
+#>   <chr> <chr>   <ord>      <chr>      <chr>      <dbl> <int>     <int>     <int>
+#> 1 alfo… argent… january    east       west        NA       0         1        99
+#> 2 biol… argent… january    northeast  west-nor…    3.9    12        28        60
+#> 3 la-p… argent… january    east       west         3.8     0         1        99
+#> 4 yacht argent… january    northeast  west-nor…    3.2    12        28        60
+#> 5 pina… argent… june       east       west-nor…    3.6    33        32        35
+#> 6 cons… argent… july       east       west        NA       4         6        90
+#> 7 mar-… argent… july       east       west         3.1    12        28        60
+#> 8 baja… argent… september  east       west-nor…   NA      31        25        44
+#> 9 rada… argent… september  east       west-nor…    3.4    31        25        44
+#> # … with 4 more variables: reliability <ord>, type <chr>, region <chr>,
+#> #   continent <chr>
 ```
