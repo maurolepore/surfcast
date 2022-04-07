@@ -5,9 +5,9 @@ account: maurolepore
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5690848
-bundleId: 5606507
+bundleId: 5773813
 url: https://maurolepore.shinyapps.io/surfcast/
-when: 1645553635.23038
-lastSyncTime: 1645553635.23044
+when: 1649329481.66309
+lastSyncTime: 1649329481.66314
 asMultiple: FALSE
 asStatic: FALSE
