@@ -37,8 +37,9 @@ Use the database [online](https://maurolepore.shinyapps.io/surfcast/). You may
 also access the data via a shiny app or directly in R.
 
 ```{r example}
-library(surfcast)
 library(dplyr, warn.conflicts = FALSE)
+library(glue)
+library(surfcast)
 ```
 
 ```r
@@ -73,5 +74,71 @@ best_conditions %>%
   filter(!grepl(sw, tolower(best_swell))) %>%
   filter(grepl(nw, tolower(best_wind))) %>% 
   filter(!grepl(se, tolower(best_wind)))
+```
+
+### I'm going to Chile in July. Should I take my surfboard?
+
+Most spots that work best in July are close to Santiago, one North near
+Antofagasta, and one South near Pichilemu. With a 4.3 a 2-h session should feel
+from okay (near Antofagasta) to uncomfortable but doable (all other spots).
+
+La Portada (near Antofagasta):
+
+* Average water temperature in July: [15.6 C](https://www.seatemperature.org/south-america/chile/antofagasta-july.htm) on average. 
+* Probability of clean conditions: 20%.
+
+Punta de Lobos (near Pichilemu):
+
+* Average water temperature in july: [13.1 C](https://www.seatemperature.org/south-america/chile/pichilemu.htm).
+* Probability of clean conditions: 30%. 
+
+Other spots (near Viña del Mar)
+
+* Average water temperature in July: [13.1](https://www.seatemperature.org/south-america/chile/pichilemu.htm)
+
+* Probability of clean conditions: 20%-70%
+
+--
+
+* Which spots work best in July?
+
+```{r echo=FALSE, message=FALSE}
+library(tidyverse, warn.conflicts = FALSE)
+library(surfcast)
+
+chile_july <- best_conditions %>% 
+  filter(country == "chile", best_month == "july")
+
+chile_july %>% 
+  select(spot, type, rating)
+```
+
+* How do they rank? 
+
+(The top spot gives me maximum probability of having clean surf, that isn't too
+small)
+
+```{r echo=FALSE}
+chile_july %>% 
+  arrange(desc(clean), blown_out, too_small) %>% 
+  select(spot, clean, blown_out, too_small)
+```
+
+For details see these pages:
+
+```{r results='asis', echo=FALSE}
+spot_url <- paste0(surfcast:::base_url(), "/breaks/", chile_july$spot, "\n")
+cat(spot_url, sep = "\n")
+```
+
+--
+
+What spots work best in June and August? (Maybe they're worth checking too)
+
+```{r echo=FALSE}
+best_conditions %>% 
+  filter(country == "chile", best_month %in% c("june", "august")) %>% 
+  arrange(desc(clean), blown_out, too_small) %>% 
+  select(spot, best_month, clean, blown_out, too_small, type, rating)
 ```
 

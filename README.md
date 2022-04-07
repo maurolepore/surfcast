@@ -26,8 +26,9 @@ Use the database [online](https://maurolepore.shinyapps.io/surfcast/).
 You may also access the data via a shiny app or directly in R.
 
 ``` r
-library(surfcast)
 library(dplyr, warn.conflicts = FALSE)
+library(glue)
+library(surfcast)
 ```
 
 ``` r
@@ -99,3 +100,89 @@ best_conditions %>%
 #> # … with 4 more variables: reliability <ord>, type <chr>, region <chr>,
 #> #   continent <chr>
 ```
+
+### I’m going to Chile in July. Should I take my surfboard?
+
+Most spots that work best in July are close to Santiago, one North near
+Antofagasta, and one South near Pichilemu. With a 4.3 a 2-h session
+should feel from okay (near Antofagasta) to uncomfortable but doable
+(all other spots).
+
+La Portada (near Antofagasta):
+
+-   Average water temperature in July: [15.6
+    C](https://www.seatemperature.org/south-america/chile/antofagasta-july.htm)
+    on average.
+-   Probability of clean conditions: 20%.
+
+Punta de Lobos (near Pichilemu):
+
+-   Average water temperature in july: [13.1
+    C](https://www.seatemperature.org/south-america/chile/pichilemu.htm).
+-   Probability of clean conditions: 30%.
+
+Other spots (near Viña del Mar)
+
+-   Average water temperature in July:
+    [13.1](https://www.seatemperature.org/south-america/chile/pichilemu.htm)
+
+-   Probability of clean conditions: 20%-70%
+
+–
+
+-   Which spots work best in July?
+
+<!-- -->
+
+    #> # A tibble: 5 × 3
+    #>   spot            type           rating
+    #>   <chr>           <chr>           <dbl>
+    #> 1 la-boca-con-con beach             3.2
+    #> 2 la-portada      point             3.7
+    #> 3 playa-amarilla  beach             3.2
+    #> 4 puntade-lobos   reef and point    3.9
+    #> 5 renaca          beach             3.3
+
+-   How do they rank?
+
+(The top spot gives me maximum probability of having clean surf, that
+isn’t too small)
+
+    #> # A tibble: 5 × 4
+    #>   spot            clean blown_out too_small
+    #>   <chr>           <int>     <int>     <int>
+    #> 1 la-boca-con-con    68        28         4
+    #> 2 puntade-lobos      29        69         2
+    #> 3 renaca             25        74         1
+    #> 4 playa-amarilla     20        64        16
+    #> 5 la-portada         19        81         0
+
+For details see these pages:
+
+<https://www.surf-forecast.com/breaks/la-boca-con-con>
+
+<https://www.surf-forecast.com/breaks/la-portada>
+
+<https://www.surf-forecast.com/breaks/playa-amarilla>
+
+<https://www.surf-forecast.com/breaks/puntade-lobos>
+
+<https://www.surf-forecast.com/breaks/renaca>
+
+–
+
+What spots work best in June and August? (Maybe they’re worth checking
+too)
+
+    #> # A tibble: 9 × 7
+    #>   spot          best_month clean blown_out too_small type  rating
+    #>   <chr>         <ord>      <int>     <int>     <int> <chr>  <dbl>
+    #> 1 las-salinas_1 june          55        22        23 point    3.3
+    #> 2 puertecillo   june          35        64         1 point   NA  
+    #> 3 punta-aguila  august        24        76         0 point    3.5
+    #> 4 choralillo    june          19        81         0 point    3.5
+    #> 5 cordeles      june          18        82         0 beach    3.8
+    #> 6 caleta-loa    june          14        86         0 beach    3.5
+    #> 7 hornitos      june          12        57        31 beach    3.4
+    #> 8 pozo-verde    june          12        57        31 point    3.3
+    #> 9 ovahe         august         1         3        96 beach    3.5
