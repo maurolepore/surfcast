@@ -1,3 +1,3 @@
-test_that("yield the expected snapshot", {
-  expect_snapshot(best_conditions)
+test_that("has the expected names", {
+  expect_snapshot(names(best_conditions))
 })
