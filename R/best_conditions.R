@@ -1,3 +1,3 @@
-#" Best surfing conditions by spot
+#' Best surfing conditions by spot
 #' @source https://surf-forecast.com/.
 "best_conditions"
